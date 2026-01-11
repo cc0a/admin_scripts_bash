@@ -4,7 +4,7 @@
 
 # Must be run as root
 if [[ $EUID -ne 0 ]]; then
-  echo "❌ This script must be run as root."
+  echo "This script must be run as root."
   exit 1
 fi
 
@@ -16,7 +16,7 @@ echo "=== User Creation Script ==="
 read -rp "Enter username: " USERNAME
 
 if id "$USERNAME" &>/dev/null; then
-  echo "❌ User '$USERNAME' already exists."
+  echo "User '$USERNAME' already exists."
   exit 1
 fi
 
@@ -29,7 +29,7 @@ read -rsp "Confirm password: " CONFIRM_PASSWORD
 echo
 
 if [[ "$PASSWORD" != "$CONFIRM_PASSWORD" ]]; then
-  echo "❌ Passwords do not match."
+  echo "Passwords do not match."
   exit 1
 fi
 
@@ -56,7 +56,7 @@ for num in $GROUP_SELECTION; do
   if [[ -n "${GROUP_MAP[$num]}" ]]; then
     SELECTED_GROUPS+=("${GROUP_MAP[$num]}")
   else
-    echo "❌ Invalid group selection: $num"
+    echo "Invalid group selection: $num"
     exit 1
   fi
 done
@@ -81,7 +81,7 @@ case $PERM_OPTION in
   3) HOME_PERMS=755 ;;
   4) HOME_PERMS=770 ;;
   *)
-    echo "❌ Invalid permission selection."
+    echo "Invalid permission selection."
     exit 1
     ;;
 esac
@@ -100,7 +100,7 @@ chown "$USERNAME:$USERNAME" "/home/$USERNAME"
 # Summary
 # ---------------------------
 echo
-echo "✅ User '$USERNAME' created successfully!"
+echo "User '$USERNAME' created successfully!"
 echo "Groups: ${SELECTED_GROUPS[*]}"
 echo "Home directory: /home/$USERNAME"
 echo "Permissions: $HOME_PERMS"
